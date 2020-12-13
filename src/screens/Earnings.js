@@ -31,8 +31,8 @@ const Earnings = ({ navigation }) => {
           <Text>Total projected earnings: 101</Text>
         </View>
         <Button
-          title="Go to Allocation Screen"
-          onPress={() => navigation.navigate('Allocation')}
+          title="Go to Amount Screen"
+          onPress={() => navigation.navigate('Amount')}
         />
       </View>
     </SafeAreaView>

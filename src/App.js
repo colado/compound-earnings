@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './screens/Home';
 import Earnings from './screens/Earnings';
 import Allocation from './screens/Allocation';
+import Amount from './screens/Amount';
 
 const App = () => {
   const Tab = createBottomTabNavigator();
@@ -14,6 +15,7 @@ const App = () => {
   const EarningsStack = () => (
     <Stack.Navigator>
       <Stack.Screen name="Earnings" component={Earnings} />
+      <Stack.Screen name="Amount" component={Amount} />
       <Stack.Screen name="Allocation" component={Allocation} />
     </Stack.Navigator>
   );
