@@ -1,8 +1,12 @@
 import React from 'react';
 import { Button, Text, View, TextInput, SafeAreaView } from 'react-native';
+import StateContext from '../StateContext';
 
 const Amount = ({ navigation }) => {
-  const [input, onInputChange] = React.useState('');
+  const { currentInvestment, setCurrentInvestment } = React.useContext(
+    StateContext,
+  );
+  const [input, onInputChange] = React.useState(currentInvestment);
   return (
     <SafeAreaView>
       <View>
@@ -10,12 +14,16 @@ const Amount = ({ navigation }) => {
         <TextInput
           onChangeText={(text) => onInputChange(text)}
           keyboardType="numeric"
-          placeholder="Enter amount in USD"
+          placeholder="Enter investment in USD"
+          value={input > 0 ? input.toString() : ''}
         />
         <Button
           disabled={!input}
           title="Confirm"
-          onPress={() => navigation.navigate('Allocation')}
+          onPress={() => {
+            setCurrentInvestment(Number(input));
+            navigation.navigate('Allocation');
+          }}
         />
       </View>
     </SafeAreaView>
