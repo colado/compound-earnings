@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, SafeAreaView, Text, View} from 'react-native';
+import { Button, SafeAreaView, Text, View } from 'react-native';
 
-const Earnings = ({navigation}) => {
+const Earnings = ({ navigation }) => {
   return (
     <SafeAreaView>
       <View>
