@@ -1,11 +1,15 @@
 import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {Button, SafeAreaView, Text, View} from 'react-native';
 
-const Earnings = () => {
+const Earnings = ({navigation}) => {
   return (
     <SafeAreaView>
       <View>
         <Text>Earnings Scren</Text>
+        <Button
+          title="Go to Allocation Screen"
+          onPress={() => navigation.navigate('Allocation')}
+        />
       </View>
     </SafeAreaView>
   );
