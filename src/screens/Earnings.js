@@ -48,6 +48,8 @@ const Earnings = ({ navigation }) => {
     setProjections(newProjections);
   }, [allocationPercentage, currentInvestment, supplyRate]);
 
+  const roundAmount = (amount) => Math.round(amount * 100) / 100;
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -72,14 +74,14 @@ const Earnings = ({ navigation }) => {
                     <Text style={styles.bodyText}>{token}</Text>
                     <Text style={styles.bodyText}>
                       {projections[token].investment &&
-                        projections[token].investment.toFixed(2)}
+                        roundAmount(projections[token].investment)}
                     </Text>
                     <Text style={styles.bodyText}>
                       {projections[token].projectedEarnings &&
-                        (
+                        roundAmount(
                           projections[token].investment +
-                          projections[token].projectedEarnings
-                        ).toFixed(2)}
+                            projections[token].projectedEarnings,
+                        )}
                     </Text>
                   </View>
                 );
@@ -87,12 +89,12 @@ const Earnings = ({ navigation }) => {
               <View>
                 <Text style={styles.bodyText}>
                   Blended interest rate:{' '}
-                  {(projections.interests / currentInvestment).toFixed(2)}%
+                  {roundAmount(projections.interests / currentInvestment)}%
                 </Text>
                 <Text style={styles.bodyText}>
                   Total projected earnings:{' '}
                   {projections.totalEarnings &&
-                    projections.totalEarnings.toFixed(2)}
+                    roundAmount(projections.totalEarnings)}
                 </Text>
               </View>
             </View>
