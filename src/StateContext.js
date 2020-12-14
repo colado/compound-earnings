@@ -5,6 +5,7 @@ export default React.createContext({
     DAI: undefined,
     USDC: undefined,
     USDT: undefined,
+    error: false,
   },
   allocationPercentage: {
     DAI: 100,

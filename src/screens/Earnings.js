@@ -95,7 +95,13 @@ const Earnings = ({ navigation }) => {
               </View>
             </View>
           )}
+          {supplyRate.error && (
+            <Text style={styles.error}>
+              Compound data could not be fetched. Please try reloading the app
+            </Text>
+          )}
           <Button
+            disabled={supplyRate.error}
             title={
               currentInvestment
                 ? 'Enter a different investment amount'
@@ -134,6 +140,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginBottom: 20,
     padding: 10,
+  },
+  error: {
+    color: 'red',
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 10,
   },
 });
 

@@ -15,6 +15,7 @@ const App = () => {
       DAI: undefined,
       USDC: undefined,
       USDT: undefined,
+      error: false,
     },
     allocationPercentage: {
       DAI: 100,
@@ -35,33 +36,43 @@ const App = () => {
 
   React.useEffect(() => {
     const fetchSupplyRates = async () => {
-      const options = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      };
-      const response = await fetch(
-        'https://api.compound.finance/api/v2/ctoken',
-        options,
-      ).then((res) => res.json());
+      try {
+        const options = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        };
+        const response = await fetch(
+          'https://api.compound.finance/api/v2/ctoken',
+          options,
+        ).then((res) => res.json());
 
-      const interestValues = {};
+        const interestValues = {};
 
-      response.cToken.forEach((cToken) => {
-        if (cToken.underlying_symbol === 'DAI')
-          interestValues.DAI = Number(cToken.supply_rate.value).toFixed(6);
-        else if (cToken.underlying_symbol === 'USDC')
-          interestValues.USDC = Number(cToken.supply_rate.value).toFixed(6);
-        else if (cToken.underlying_symbol === 'USDT')
-          interestValues.USDT = Number(cToken.supply_rate.value).toFixed(6);
-      });
+        response.cToken.forEach((cToken) => {
+          if (cToken.underlying_symbol === 'DAI')
+            interestValues.DAI = Number(cToken.supply_rate.value).toFixed(6);
+          else if (cToken.underlying_symbol === 'USDC')
+            interestValues.USDC = Number(cToken.supply_rate.value).toFixed(6);
+          else if (cToken.underlying_symbol === 'USDT')
+            interestValues.USDT = Number(cToken.supply_rate.value).toFixed(6);
+        });
 
-      setState((prevState) => ({
-        ...prevState,
-        supplyRate: interestValues,
-      }));
+        setState((prevState) => ({
+          ...prevState,
+          supplyRate: interestValues,
+        }));
+      } catch (error) {
+        setState((prevState) => ({
+          ...prevState,
+          supplyRate: {
+            ...prevState.supplyRate,
+            error: true,
+          },
+        }));
+      }
     };
 
     fetchSupplyRates();

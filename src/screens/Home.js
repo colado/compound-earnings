@@ -14,17 +14,24 @@ const Home = () => {
           </View>
           <View style={styles.body}>
             <Text style={styles.title}>Current supply interest rate</Text>
-            {!Object.keys(supplyRate).some((asset) => supplyRate[asset]) ? (
-              <Text style={styles.bodyText}>
-                Compound data could not be fetched. If problem persists, please
-                reload the app
+            {supplyRate.error ? (
+              <Text style={styles.error}>
+                Compound data could not be fetched. Please try reloading the app
               </Text>
             ) : (
-              Object.keys(supplyRate).map((asset) => (
-                <Text key={asset} style={styles.bodyText}>
-                  {asset}: {Number(supplyRate[asset]).toFixed(2)} %
+              <View>
+                <Text style={styles.bodyText}>
+                  DAI: {supplyRate.DAI && Number(supplyRate.DAI).toFixed(2)} %
                 </Text>
-              ))
+                <Text style={styles.bodyText}>
+                  USDC: {supplyRate.USDC && Number(supplyRate.USDC).toFixed(2)}{' '}
+                  %
+                </Text>
+                <Text style={styles.bodyText}>
+                  USDT: {supplyRate.USDT && Number(supplyRate.USDT).toFixed(2)}{' '}
+                  %
+                </Text>
+              </View>
             )}
           </View>
         </View>
@@ -53,6 +60,12 @@ const styles = StyleSheet.create({
   bodyText: {
     marginVertical: 5,
     fontSize: 16,
+  },
+  error: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginVertical: 5,
+    color: 'red',
   },
 });
 
