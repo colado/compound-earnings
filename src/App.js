@@ -92,7 +92,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <StateContext.Provider value={state}>
-        <Tab.Navigator>
+        <Tab.Navigator
+          tabBarOptions={{
+            labelPosition: 'beside-icon',
+          }}>
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Earnings" component={EarningsStack} />
         </Tab.Navigator>
