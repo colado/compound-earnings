@@ -58,7 +58,7 @@ const App = () => {
             cToken.underlying_symbol === 'USDT'
           )
             interestValues[cToken.underlying_symbol] = Number(
-              cToken.supply_rate.value,
+              cToken.supply_rate.value * 100,
             ).toFixed(6);
         });
 
