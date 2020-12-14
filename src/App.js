@@ -52,12 +52,14 @@ const App = () => {
         const interestValues = {};
 
         response.cToken.forEach((cToken) => {
-          if (cToken.underlying_symbol === 'DAI')
-            interestValues.DAI = Number(cToken.supply_rate.value).toFixed(6);
-          else if (cToken.underlying_symbol === 'USDC')
-            interestValues.USDC = Number(cToken.supply_rate.value).toFixed(6);
-          else if (cToken.underlying_symbol === 'USDT')
-            interestValues.USDT = Number(cToken.supply_rate.value).toFixed(6);
+          if (
+            cToken.underlying_symbol === 'DAI' ||
+            cToken.underlying_symbol === 'USDC' ||
+            cToken.underlying_symbol === 'USDT'
+          )
+            interestValues[cToken.underlying_symbol] = Number(
+              cToken.supply_rate.value,
+            ).toFixed(6);
         });
 
         setState((prevState) => ({
