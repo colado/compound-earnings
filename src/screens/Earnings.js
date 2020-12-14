@@ -89,7 +89,7 @@ const Earnings = ({ navigation }) => {
               <View>
                 <Text style={styles.bodyText}>
                   Blended interest rate:{' '}
-                  {roundAmount(projections.interests / currentInvestment)}%
+                  {(projections.interests / currentInvestment).toFixed(5)}%
                 </Text>
                 <Text style={styles.bodyText}>
                   Total projected earnings:{' '}
