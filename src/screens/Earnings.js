@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import StateContext from '../StateContext';
 
 const Earnings = ({ navigation }) => {
@@ -44,52 +51,60 @@ const Earnings = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      {!currentInvestment ? (
-        <Text>You haven't entered any investment yet</Text>
-      ) : (
-        <View>
-          <Text>Current USD investment: {currentInvestment}</Text>
-          <View style={styles.row}>
-            <Text style={styles.text}>Token</Text>
-            <Text style={styles.text}>USD investment</Text>
-            <Text style={styles.text}>Projected earnings</Text>
-          </View>
-          {Object.keys(allocationPercentage).map((token) => {
-            return (
-              <View key={token} style={styles.row}>
-                <Text style={styles.text}>{token}</Text>
-                <Text style={styles.text}>
-                  {projections[token].investment &&
-                    projections[token].investment.toFixed(2)}
+      <ScrollView>
+        <View style={styles.container}>
+          {!currentInvestment ? (
+            <Text style={styles.bodyText}>
+              You haven't entered any investment yet
+            </Text>
+          ) : (
+            <View style={styles.table}>
+              <Text style={styles.bodyText}>
+                Current USD investment: {currentInvestment}
+              </Text>
+              <View style={styles.row}>
+                <Text style={styles.bodyText}>Token</Text>
+                <Text style={styles.bodyText}>USD investment</Text>
+                <Text style={styles.bodyText}>Projected earnings</Text>
+              </View>
+              {Object.keys(allocationPercentage).map((token) => {
+                return (
+                  <View key={token} style={styles.row}>
+                    <Text style={styles.bodyText}>{token}</Text>
+                    <Text style={styles.bodyText}>
+                      {projections[token].investment &&
+                        projections[token].investment.toFixed(2)}
+                    </Text>
+                    <Text style={styles.bodyText}>
+                      {projections[token].projectedEarnings &&
+                        projections[token].projectedEarnings.toFixed(2)}
+                    </Text>
+                  </View>
+                );
+              })}
+              <View>
+                <Text style={styles.bodyText}>
+                  Blended interest rate:{' '}
+                  {(projections.interests / currentInvestment).toFixed(2)}%
                 </Text>
-                <Text style={styles.text}>
-                  {projections[token].projectedEarnings &&
-                    projections[token].projectedEarnings.toFixed(2)}
+                <Text style={styles.bodyText}>
+                  Total projected earnings:{' '}
+                  {projections.totalEarnings &&
+                    projections.totalEarnings.toFixed(2)}
                 </Text>
               </View>
-            );
-          })}
-          <View>
-            <Text>
-              Blended interest rate:{' '}
-              {(projections.interests / currentInvestment).toFixed(2)}%
-            </Text>
-            <Text>
-              Total projected earnings:{' '}
-              {projections.totalEarnings &&
-                projections.totalEarnings.toFixed(2)}
-            </Text>
-          </View>
+            </View>
+          )}
+          <Button
+            title={
+              currentInvestment
+                ? 'Enter a different investment amount'
+                : 'Enter an investment amount'
+            }
+            onPress={() => navigation.navigate('Amount')}
+          />
         </View>
-      )}
-      <Button
-        title={
-          currentInvestment
-            ? 'Enter a different investment amount'
-            : 'Enter an investment amount'
-        }
-        onPress={() => navigation.navigate('Amount')}
-      />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -99,8 +114,26 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
-  text: {
+  container: {
+    padding: 40,
     flex: 1,
+    alignItems: 'center',
+  },
+  bodyText: {
+    flex: 1,
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 10,
+  },
+  title: {
+    fontSize: 26,
+  },
+  table: {
+    width: '100%',
+    borderColor: 'black',
+    borderWidth: 2,
+    marginBottom: 20,
+    padding: 10,
   },
 });
 

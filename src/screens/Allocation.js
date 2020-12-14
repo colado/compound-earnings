@@ -1,6 +1,13 @@
 import React from 'react';
 import { Slider } from 'react-native-elements';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { useContext } from 'react';
 import StateContext from '../StateContext';
 
@@ -41,60 +48,83 @@ const Allocation = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <View>
-        <Text>Allocate your funds among the following assets</Text>
-        <Text>
-          DAI: ${(currentInvestment * (sliderValues.DAI / 100)).toFixed(2)}
-        </Text>
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={100}
-          value={sliderValues.DAI}
-          onValueChange={(value) => handleChange(value, 'DAI')}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
-        />
-        <Text>
-          USDC: ${(currentInvestment * (sliderValues.USDC / 100)).toFixed(2)}
-        </Text>
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={100}
-          value={sliderValues.USDC}
-          onValueChange={(value) => handleChange(value, 'USDC')}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
-        />
-        <Text>
-          USDT: ${(currentInvestment * (sliderValues.USDT / 100)).toFixed(2)}
-        </Text>
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={100}
-          value={sliderValues.USDT}
-          onValueChange={(value) => handleChange(value, 'USDT')}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
-        />
-      </View>
-      <Button
-        title="Confirm"
-        onPress={() => {
-          setAllocations(sliderValues);
-          navigation.navigate('Earnings');
-        }}
-      />
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.body}>
+            <Text style={styles.title}>
+              Allocate your funds among the following assets
+            </Text>
+            <Text style={styles.bodyText}>
+              DAI: ${(currentInvestment * (sliderValues.DAI / 100)).toFixed(2)}
+            </Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={100}
+              value={sliderValues.DAI}
+              onValueChange={(value) => handleChange(value, 'DAI')}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+            />
+            <Text style={styles.bodyText}>
+              USDC: $
+              {(currentInvestment * (sliderValues.USDC / 100)).toFixed(2)}
+            </Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={100}
+              value={sliderValues.USDC}
+              onValueChange={(value) => handleChange(value, 'USDC')}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+            />
+            <Text style={styles.bodyText}>
+              USDT: $
+              {(currentInvestment * (sliderValues.USDT / 100)).toFixed(2)}
+            </Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={100}
+              value={sliderValues.USDT}
+              onValueChange={(value) => handleChange(value, 'USDT')}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+            />
+          </View>
+          <Button
+            title="Confirm"
+            onPress={() => {
+              setAllocations(sliderValues);
+              navigation.navigate('Earnings');
+            }}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 40,
+  },
   slider: {
     width: '100%',
     height: 40,
+  },
+  title: {
+    fontSize: 26,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  body: {
+    marginBottom: 20,
+  },
+  bodyText: {
+    fontSize: 16,
   },
 });
 
