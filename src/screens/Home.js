@@ -21,15 +21,13 @@ const Home = () => {
             ) : (
               <View>
                 <Text style={styles.bodyText}>
-                  DAI: {supplyRate.DAI && Number(supplyRate.DAI).toFixed(2)} %
+                  DAI: {supplyRate.DAI && Number(supplyRate.DAI).toFixed(2)}%
                 </Text>
                 <Text style={styles.bodyText}>
-                  USDC: {supplyRate.USDC && Number(supplyRate.USDC).toFixed(2)}{' '}
-                  %
+                  USDC: {supplyRate.USDC && Number(supplyRate.USDC).toFixed(2)}%
                 </Text>
                 <Text style={styles.bodyText}>
-                  USDT: {supplyRate.USDT && Number(supplyRate.USDT).toFixed(2)}{' '}
-                  %
+                  USDT: {supplyRate.USDT && Number(supplyRate.USDT).toFixed(2)}%
                 </Text>
               </View>
             )}
@@ -58,6 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   bodyText: {
+    textAlign: 'center',
     marginVertical: 5,
     fontSize: 16,
   },

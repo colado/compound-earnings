@@ -28,8 +28,7 @@ const Earnings = ({ navigation }) => {
       (acc, curr) => {
         const investment =
           currentInvestment * (allocationPercentage[curr] / 100);
-        const projectedEarnings =
-          investment + (investment * supplyRate[curr]) / 100;
+        const projectedEarnings = investment * (supplyRate[curr] / 100);
 
         acc[curr] = {
           investment,
@@ -65,7 +64,7 @@ const Earnings = ({ navigation }) => {
               <View style={styles.row}>
                 <Text style={styles.bodyText}>Token</Text>
                 <Text style={styles.bodyText}>USD investment</Text>
-                <Text style={styles.bodyText}>Projected earnings</Text>
+                <Text style={styles.bodyText}>Investment + Interest</Text>
               </View>
               {Object.keys(allocationPercentage).map((token) => {
                 return (
@@ -77,7 +76,10 @@ const Earnings = ({ navigation }) => {
                     </Text>
                     <Text style={styles.bodyText}>
                       {projections[token].projectedEarnings &&
-                        projections[token].projectedEarnings.toFixed(2)}
+                        (
+                          projections[token].investment +
+                          projections[token].projectedEarnings
+                        ).toFixed(2)}
                     </Text>
                   </View>
                 );
