@@ -4,6 +4,5 @@ Proof of concept for mobile application to display projected earnings after ente
 ## How to test
 
 1. Clone the repository.
-2. Switch to `development` branch.
 3. Run `npm start`.
 4. Run `npm run ios`.
